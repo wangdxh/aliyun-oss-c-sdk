@@ -22,9 +22,7 @@ int get_truncated_from_xml(aos_pool_t *p, mxml_node_t *xml_node, const char *tru
     return truncated;
 }
 
-static char* new_xml_buff(mxml_node_t *doc);
-
-char* new_xml_buff(mxml_node_t *doc)
+static char* new_xml_buff(mxml_node_t *doc)
 {
     int	bytes;				
     char buffer[8192];
@@ -2032,11 +2030,9 @@ int get_xmlnode_value_uint64(aos_pool_t *p, mxml_node_t *xml_node, const char *x
     return AOS_TRUE;
 }
 
-char *oss_build_checkpoint_xml(aos_pool_t *p, const oss_checkpoint_t *checkpoint)
+char *oss_build_checkpoint_xml(const oss_checkpoint_t *checkpoint)
 {
-    char *checkpoint_xml;
     char *xml_buff;
-    aos_string_t xml_doc;
     mxml_node_t *doc;
     mxml_node_t *root_node;
     mxml_node_t *local_node;
@@ -2099,16 +2095,8 @@ char *oss_build_checkpoint_xml(aos_pool_t *p, const oss_checkpoint_t *checkpoint
 
     // dump
     xml_buff = new_xml_buff(doc);
-    if (xml_buff == NULL) {
-        return NULL;
-    }
-    aos_str_set(&xml_doc, xml_buff);
-    checkpoint_xml = aos_pstrdup(p, &xml_doc);
-
-    free(xml_buff);
     mxmlDelete(doc);
-
-    return checkpoint_xml;
+    return xml_buff;
 }
 
 int oss_checkpoint_parse_from_body(aos_pool_t *p, const char *xml_body, oss_checkpoint_t *checkpoint)
