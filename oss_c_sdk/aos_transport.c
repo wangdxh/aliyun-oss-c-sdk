@@ -36,6 +36,30 @@ static int aos_curl_debug_callback(void *handle, curl_infotype type, char *data,
     }
     return 0;
 }
+
+static void aos_print_curl_statistics(CURL *curl, CURLcode code, int64_t opTime)
+{
+    if (!curl)
+        return;
+
+    if (aos_log_level >= AOS_LOG_INFO) {
+        long response_code = 0;
+        double total = 0;
+        double namelookup = 0;
+        double connect = 0;
+        double ul = 0;
+        double dl = 0;
+        curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+        curl_easy_getinfo(curl, CURLINFO_TOTAL_TIME, &total);
+        curl_easy_getinfo(curl, CURLINFO_NAMELOOKUP_TIME, &namelookup);
+        curl_easy_getinfo(curl, CURLINFO_CONNECT_TIME, &connect);
+        curl_easy_getinfo(curl, CURLINFO_SIZE_UPLOAD, &ul);
+        curl_easy_getinfo(curl, CURLINFO_SIZE_DOWNLOAD, &dl);
+        aos_info_log("curl:%pp CURLcode:%d, response:%d, op (ms):%d. info: total(ms):%.0f, nlookup(ms):%.0f, connect(ms):%.0f, upload:%.0f, download:%.0f",
+            curl, code, (int)response_code, (int)(opTime /1000), total*1000, namelookup*1000, connect*1000, ul, dl);
+    }
+}
+
 static void aos_init_curl_headers(aos_curl_http_transport_t *t)
 {
     int pos;
@@ -485,7 +509,9 @@ int aos_curl_http_transport_perform(aos_http_transport_t *t_)
             aos_error_log("transport failure curl code:%d error:%s", code, t->controller->reason);
         }
     }
-    
+
+    aos_print_curl_statistics(t->curl, code, (t->controller->finish_time - t->controller->start_time));
+
     aos_curl_transport_finish(t);
     
     return t->controller->error_code;
