@@ -38,7 +38,7 @@ void put_and_get_from_buffer_with_progress()
     aos_list_add_tail(&content->node, &buffer);
 
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-meta-author", "oss");
+    apr_table_set(headers, "x-amz-meta-author", "oss");
     
     /* test put object */
     s = oss_do_put_object_from_buffer(options, &bucket, &object, &buffer, 
@@ -155,7 +155,7 @@ void append_object_with_progress()
     aos_list_add_tail(&content->node, &buffer);
 
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-meta-author", "oss");
+    apr_table_set(headers, "x-amz-meta-author", "oss");
     
     /* append object from buffer */
     s = oss_do_append_object_from_buffer(options, &bucket, &object, 0, initcrc, &buffer, 

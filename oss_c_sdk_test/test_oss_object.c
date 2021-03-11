@@ -104,7 +104,7 @@ void test_put_object_from_buffer(CuTest *tc)
     options = oss_request_options_create(p);
     init_test_request_options(options, is_cname);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-meta-author", "oss");
+    apr_table_set(headers, "x-amz-meta-author", "oss");
     s = create_test_object(options, TEST_BUCKET_NAME, object_name, str, headers);
     CuAssertIntEquals(tc, 200, s->code);
     CuAssertPtrNotNull(tc, headers);
@@ -148,7 +148,7 @@ void test_put_object_from_buffer_with_default_content_type(CuTest *tc)
     options = oss_request_options_create(p);
     init_test_request_options(options, is_cname);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-meta-author", "oss");
+    apr_table_set(headers, "x-amz-meta-author", "oss");
     s = create_test_object(options, TEST_BUCKET_NAME, object_name, str, headers);
     CuAssertIntEquals(tc, 200, s->code);
     CuAssertPtrNotNull(tc, headers);
@@ -191,7 +191,7 @@ void test_put_object_from_buffer_with_specified(CuTest *tc)
     options = oss_request_options_create(p);
     init_test_request_options(options, is_cname);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-meta-author", "oss");
+    apr_table_set(headers, "x-amz-meta-author", "oss");
     s = create_test_object(options, TEST_BUCKET_NAME, object_name, str, headers);
     CuAssertIntEquals(tc, 200, s->code);
     CuAssertPtrNotNull(tc, headers);
@@ -299,7 +299,7 @@ void test_put_object_with_large_length_header(CuTest *tc)
     }
     user_meta[header_length - 1] = '\0';
     headers = aos_table_make(p, 2);
-    apr_table_set(headers, "x-oss-meta-user-meta", user_meta);
+    apr_table_set(headers, "x-amz-meta-user-meta", user_meta);
     s = create_test_object_from_file(options, TEST_BUCKET_NAME, 
             object_name, filename, headers);
     CuAssertIntEquals(tc, 200, s->code);
@@ -859,7 +859,7 @@ void test_head_object(CuTest *tc)
     CuAssertIntEquals(tc, 200, s->code);
     CuAssertPtrNotNull(tc, resp_headers);
     
-    user_meta = (char*)(apr_table_get(resp_headers, "x-oss-meta-author"));
+    user_meta = (char*)(apr_table_get(resp_headers, "x-amz-meta-author"));
     CuAssertStrEquals(tc, "oss", user_meta);
 
     aos_pool_destroy(p);
@@ -1482,7 +1482,7 @@ void test_append_object_from_buffer(CuTest *tc)
     s = oss_head_object(options, &bucket, &object, headers, &resp_headers);
     if (s->code == 200) {
         next_append_position = (char*)(apr_table_get(resp_headers, 
-                        "x-oss-next-append-position"));
+                        "x-rgw-next-append-position"));
         position = atoi(next_append_position);
     }
     CuAssertPtrNotNull(tc, resp_headers);
@@ -1647,7 +1647,7 @@ void test_put_object_from_buffer_with_invalid_endpoint(CuTest *tc)
     init_test_request_options(options, is_cname);
     aos_str_set(&options->config->endpoint, "192.168.1.1");
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-meta-author", "oss");
+    apr_table_set(headers, "x-amz-meta-author", "oss");
     s = create_test_object(options, TEST_BUCKET_NAME, object_name, str, headers);
     CuAssertIntEquals(tc, AOSE_CONNECTION_FAILED, s->code);
 

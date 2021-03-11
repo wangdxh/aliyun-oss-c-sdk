@@ -1,13 +1,13 @@
 #include "oss_define.h"
 
-const char OSS_CANNONICALIZED_HEADER_PREFIX[] = "x-oss-";
-const char OSS_CANNONICALIZED_HEADER_DATE[] = "x-oss-date";
-const char OSS_CANNONICALIZED_HEADER_ACL[] = "x-oss-acl";
+const char OSS_CANNONICALIZED_HEADER_PREFIX[] = "x-amz-";
+const char OSS_CANNONICALIZED_HEADER_DATE[] = "x-amz-date";
+const char OSS_CANNONICALIZED_HEADER_ACL[] = "x-amz-acl";
 const char OSS_CANNONICALIZED_HEADER_STORAGE_CLASS[] = "StorageClass";
-const char OSS_CANNONICALIZED_HEADER_COPY_SOURCE[] = "x-oss-copy-source";
-const char OSS_CANNONICALIZED_HEADER_SYMLINK[] = "x-oss-symlink-target";
-const char OSS_CANNONICALIZED_HEADER_REGION[] = "x-oss-bucket-region";
-const char OSS_CANNONICALIZED_HEADER_OBJECT_ACL[] = "x-oss-object-acl";
+const char OSS_CANNONICALIZED_HEADER_COPY_SOURCE[] = "x-amz-copy-source";
+
+const char OSS_CANNONICALIZED_HEADER_REGION[] = "x-amz-bucket-region";
+
 const char OSS_CONTENT_MD5[] = "Content-MD5";
 const char OSS_CONTENT_TYPE[] = "Content-Type";
 const char OSS_CONTENT_LENGTH[] = "Content-Length";
@@ -39,16 +39,25 @@ const char OSS_PARTNUMBER[] = "partNumber";
 const char OSS_APPEND[] = "append";
 const char OSS_POSITION[] = "position";
 const char OSS_MULTIPART_CONTENT_TYPE[] = "application/x-www-form-urlencoded";
-const char OSS_COPY_SOURCE[] = "x-oss-copy-source";
-const char OSS_COPY_SOURCE_RANGE[] = "x-oss-copy-source-range";
+const char OSS_COPY_SOURCE[] = "x-amz-copy-source";
+const char OSS_COPY_SOURCE_RANGE[] = "x-amz-copy-source-range";
 const char OSS_SECURITY_TOKEN[] = "security-token";
-const char OSS_STS_SECURITY_TOKEN[] = "x-oss-security-token";
-const char OSS_OBJECT_TYPE[] = "x-oss-object-type";
-const char OSS_NEXT_APPEND_POSITION[] = "x-oss-next-append-position";
-const char OSS_HASH_CRC64_ECMA[] = "x-oss-hash-crc64ecma";
-const char OSS_CALLBACK[] = "x-oss-callback";
-const char OSS_CALLBACK_VAR[] = "x-oss-callback-var";
-const char OSS_PROCESS[] = "x-oss-process";
+const char OSS_STS_SECURITY_TOKEN[] = "x-amz-security-token";
+
+// next two from https://github.com/ceph/ceph/pull/22755
+const char OSS_OBJECT_TYPE[] = "x-amz-object-type";  
+const char OSS_NEXT_APPEND_POSITION[] = "x-rgw-next-append-position";
+
+// not find in amz  为了签名通过，修改成amz
+const char OSS_CANNONICALIZED_HEADER_SYMLINK[] = "x-amz-symlink-target";
+const char OSS_CANNONICALIZED_HEADER_OBJECT_ACL[] = "x-amz-object-acl";
+const char OSS_HASH_CRC64_ECMA[] = "x-amz-hash-crc64ecma";
+const char OSS_CALLBACK[] = "x-amz-callback";
+const char OSS_CALLBACK_VAR[] = "x-amz-callback-var";
+const char OSS_PROCESS[] = "x-amz-process";
+const char OSS_SELECT_OBJECT_OUTPUT_RAW[] = "x-amz-select-output-raw";
+const char OSS_SIGN_ORIGIN_ONLY[] = "x-amz-sign-origin-only";
+
 const char OSS_LIFECYCLE[] = "lifecycle";
 const char OSS_REFERER[] = "referer";
 const char OSS_CORS[] = "cors";
@@ -79,7 +88,7 @@ const int OSS_MAX_PART_NUM = 10000;
 const int OSS_PER_RET_NUM = 1000;
 const int MAX_SUFFIX_LEN = 1024;
 const char OSS_OBJECT_META[] = "objectMeta";
-const char OSS_SELECT_OBJECT_OUTPUT_RAW[] = "x-oss-select-output-raw";
+
 const char OSS_TAGGING[] = "tagging";
-const char OSS_SIGN_ORIGIN_ONLY[] = "x-oss-sign-origin-only";
+
 

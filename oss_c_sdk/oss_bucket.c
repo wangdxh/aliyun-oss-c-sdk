@@ -31,6 +31,8 @@ static aos_status_t *oss_create_bucket_with_params(const oss_request_options_t *
     if (oss_acl_str) {
         apr_table_set(headers, OSS_CANNONICALIZED_HEADER_ACL, oss_acl_str);
     }
+    //apr_table_set(headers, "Expect", "");
+    //apr_table_set(headers, "Transfer-Encoding", "");
 
     oss_init_bucket_request(options, bucket, HTTP_PUT, &req, 
                             query_params, headers, &resp);

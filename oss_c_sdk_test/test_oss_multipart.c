@@ -195,7 +195,7 @@ void test_multipart_upload(CuTest *tc)
 
     //upload part
     aos_list_init(&buffer);
-    make_random_body(p, 200, &buffer);
+    make_random_body(p, 4000, &buffer);
 
     s = oss_upload_part_from_buffer(options, &bucket, &object, &upload_id,
         part_num, &buffer, &upload_part_resp_headers);
@@ -203,7 +203,7 @@ void test_multipart_upload(CuTest *tc)
     CuAssertPtrNotNull(tc, upload_part_resp_headers);
 
     aos_list_init(&buffer);
-    make_random_body(p, 200, &buffer);
+    make_random_body(p, 4000, &buffer);
     s = oss_upload_part_from_buffer(options, &bucket, &object, &upload_id,
         part_num1, &buffer, &upload_part_resp_headers);
     CuAssertIntEquals(tc, 200, s->code);
@@ -295,7 +295,7 @@ void test_multipart_upload_from_file(CuTest *tc)
     aos_str_set(&object, object_name);
 
     // create multipart upload local file    
-    make_rand_string(p, 10 * 1024 * 1024, &data);
+    make_rand_string(p, 20 * 1024 * 1024, &data);
     fd = fopen(file_path, "w");
     CuAssertTrue(tc, fd != NULL);
     fwrite(data.data, sizeof(data.data[0]), data.len, fd);
@@ -309,14 +309,14 @@ void test_multipart_upload_from_file(CuTest *tc)
     upload_file = oss_create_upload_file(p);
     aos_str_set(&upload_file->filename, file_path);
     upload_file->file_pos = 0;
-    upload_file->file_last = 200 * 1024; //200k
+    upload_file->file_last = 8*1024 * 1024; //200k
     
     s = oss_upload_part_from_file(options, &bucket, &object, &upload_id,
         part_num, upload_file, &upload_part_resp_headers);
     CuAssertIntEquals(tc, 200, s->code);
     CuAssertPtrNotNull(tc, upload_part_resp_headers);
     
-    upload_file->file_pos = 200 *1024;//remain content start pos
+    upload_file->file_pos = 8 *1024 *1024;//remain content start pos
     upload_file->file_last = get_file_size(file_path);
     
     s = oss_upload_part_from_file(options, &bucket, &object, &upload_id,
@@ -872,7 +872,7 @@ void test_oss_get_sorted_uploaded_part(CuTest *tc)
 
     //upload part
     aos_list_init(&buffer);
-    make_random_body(p, 200, &buffer);
+    make_random_body(p, 4000, &buffer);
 
     s = oss_upload_part_from_buffer(options, &bucket, &object, &upload_id,
         part_num, &buffer, &upload_part_resp_headers);
@@ -880,7 +880,7 @@ void test_oss_get_sorted_uploaded_part(CuTest *tc)
     CuAssertPtrNotNull(tc, upload_part_resp_headers);
 
     aos_list_init(&buffer);
-    make_random_body(p, 200, &buffer);
+    make_random_body(p, 4000, &buffer);
     s = oss_upload_part_from_buffer(options, &bucket, &object, &upload_id,
         part_num1, &buffer, &upload_part_resp_headers);
     CuAssertIntEquals(tc, 200, s->code);

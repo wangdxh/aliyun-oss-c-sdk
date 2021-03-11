@@ -1391,7 +1391,7 @@ static void test_oss_get_string_to_sign_negative(CuTest *tc) {
     apr_table_set(headers, OSS_CANNONICALIZED_HEADER_DATE, "Fri, 06 Sep 2019 08:54:24 GMT");
     memset(special_header, 0x30, AOS_MAX_HEADER_LEN);
     special_header[AOS_MAX_HEADER_LEN] = '\0';
-    apr_table_set(headers, "x-oss-meta-user1", special_header);
+    apr_table_set(headers, "x-amz-meta-user1", special_header);
     ret = oss_get_string_to_sign(p, HTTP_GET, &canon_res, headers, params, &signstr);
     CuAssertIntEquals(tc, AOSE_OK, ret);
 

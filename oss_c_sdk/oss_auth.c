@@ -23,8 +23,8 @@ static const char *g_s_oss_sub_resource_list[] = {
     "response-cache-control",
     "response-content-disposition",
     "response-content-encoding",
-    "append",
-    "position",
+//    "append",
+  //  "position",
     "lifecycle",
     "delete",
     "live",
@@ -33,11 +33,11 @@ static const char *g_s_oss_sub_resource_list[] = {
     "vod",
     "startTime",
     "endTime",
-    "x-oss-process",
+    "x-amz-process",
     "security-token",
     "objectMeta",
     "tagging",
-    "x-oss-sign-origin-only",
+    "x-amz-sign-origin-only",
     NULL,
 };
 
@@ -263,7 +263,8 @@ void oss_sign_headers(aos_pool_t *p,
 
     // Now base-64 encode the results
     b64Len = aos_base64_encode(hmac, 20, b64);
-    value = apr_psprintf(p, "OSS %.*s:%.*s", access_key_id->len, access_key_id->data, b64Len, b64);
+    //value = apr_psprintf(p, "OSS %.*s:%.*s", access_key_id->len, access_key_id->data, b64Len, b64);
+    value = apr_psprintf(p, "AWS %.*s:%.*s", access_key_id->len, access_key_id->data, b64Len, b64);
     apr_table_addn(headers, OSS_AUTHORIZATION, value);
 
     return;

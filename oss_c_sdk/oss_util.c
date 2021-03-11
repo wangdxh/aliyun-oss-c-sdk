@@ -879,6 +879,8 @@ void oss_init_request(const oss_request_options_t *options,
     *resp = aos_http_response_create(options->pool);
     (*req)->method = method;
     init_sts_token_header();
+    apr_table_set(headers, "Expect", "");
+    apr_table_set(headers, "Transfer-Encoding", "");
     (*req)->headers = headers;
     (*req)->query_params = params;
 }
@@ -977,7 +979,7 @@ aos_status_t *oss_send_request(aos_http_controller_t *ctl,
         s->code = resp->status;
     }
 
-    s->req_id = (char*)(apr_table_get(resp->headers, "x-oss-request-id"));
+    s->req_id = (char*)(apr_table_get(resp->headers, "x-amz-request-id"));
     if (s->req_id == NULL) {
         s->req_id = (char*)(apr_table_get(resp->headers, "x-img-request-id"));
         if (s->req_id == NULL) {

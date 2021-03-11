@@ -100,7 +100,7 @@ void test_object_tagging_basic(CuTest *tc)
     options = oss_request_options_create(p);
     init_test_request_options(options, is_cname);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-meta-author", "oss");
+    apr_table_set(headers, "x-amz-meta-author", "oss");
     s = create_test_object(options, TEST_BUCKET_NAME, object_name, str, headers);
     CuAssertIntEquals(tc, 200, s->code);
     CuAssertPtrNotNull(tc, headers);
@@ -252,7 +252,7 @@ void test_object_tagging_tag_list(CuTest *tc)
     options = oss_request_options_create(p);
     init_test_request_options(options, is_cname);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-meta-author", "oss");
+    apr_table_set(headers, "x-amz-meta-author", "oss");
     s = create_test_object(options, TEST_BUCKET_NAME, object_name, str, headers);
     CuAssertIntEquals(tc, 200, s->code);
     CuAssertPtrNotNull(tc, headers);
@@ -342,7 +342,7 @@ void test_object_tagging_put_object(CuTest *tc)
     aos_str_set(&object, object_name);
     init_test_request_options(options, is_cname);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-tagging", "key1=value1&key2=value2");
+    apr_table_set(headers, "x-amz-tagging", "key1=value1&key2=value2");
 
     aos_list_init(&buffer);
     content = aos_buf_pack(options->pool, str, strlen(str));
@@ -419,7 +419,7 @@ void test_object_tagging_append_object(CuTest *tc)
     aos_str_set(&object, object_name);
     init_test_request_options(options, is_cname);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-tagging", "key1=value1&key2=value2");
+    apr_table_set(headers, "x-amz-tagging", "key1=value1&key2=value2");
 
     aos_list_init(&buffer);
     content = aos_buf_pack(options->pool, str, strlen(str));
@@ -493,7 +493,7 @@ void test_object_tagging_put_symlink(CuTest *tc)
     options = oss_request_options_create(p);
     init_test_request_options(options, is_cname);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-tagging", "key3=value3");
+    apr_table_set(headers, "x-amz-tagging", "key3=value3");
     s = create_test_object(options, TEST_BUCKET_NAME, object_name, "hello world", headers);
     CuAssertIntEquals(tc, 200, s->code);
     CuAssertPtrNotNull(tc, headers);
@@ -503,7 +503,7 @@ void test_object_tagging_put_symlink(CuTest *tc)
     aos_pool_create(&p, NULL);
     options = oss_request_options_create(p);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-tagging", "key1=value1");
+    apr_table_set(headers, "x-amz-tagging", "key1=value1");
     aos_str_set(&bucket, TEST_BUCKET_NAME);
     aos_str_set(&sym_object, link_object_name);
     aos_str_set(&target_object, object_name);
@@ -565,7 +565,7 @@ void test_object_tagging_copy_object(CuTest *tc)
     options = oss_request_options_create(p);
     init_test_request_options(options, is_cname);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-tagging", "key3=value3");
+    apr_table_set(headers, "x-amz-tagging", "key3=value3");
     s = create_test_object(options, TEST_BUCKET_NAME, source_object_name, "hello world", headers);
     CuAssertIntEquals(tc, 200, s->code);
     CuAssertPtrNotNull(tc, headers);
@@ -582,7 +582,7 @@ void test_object_tagging_copy_object(CuTest *tc)
     aos_str_set(&source_object, source_object_name);
     aos_str_set(&dest_bucket, TEST_BUCKET_NAME);
     aos_str_set(&dest_object, dest_object_name);
-    apr_table_set(headers, "x-oss-tagging-directive", "Copy");
+    apr_table_set(headers, "x-amz-tagging-directive", "Copy");
 
     s = oss_copy_object(options, &source_bucket, &source_object,
         &dest_bucket, &dest_object, headers, &resp_headers);
@@ -626,8 +626,8 @@ void test_object_tagging_copy_object(CuTest *tc)
     aos_str_set(&source_object, source_object_name);
     aos_str_set(&dest_bucket, TEST_BUCKET_NAME);
     aos_str_set(&dest_object, dest_object_name);
-    apr_table_set(headers, "x-oss-tagging-directive", "Replace");
-    apr_table_set(headers, "x-oss-tagging", "key1=value1&key2=value2");
+    apr_table_set(headers, "x-amz-tagging-directive", "Replace");
+    apr_table_set(headers, "x-amz-tagging", "key1=value1&key2=value2");
 
     s = oss_copy_object(options, &source_bucket, &source_object,
         &dest_bucket, &dest_object, headers, &resp_headers);
@@ -705,7 +705,7 @@ void test_object_tagging_multipart_upload(CuTest *tc)
     headers = aos_table_make(options->pool, 2);
 
     //init mulitipart
-    apr_table_add(headers, "x-oss-tagging", "key1=value1&key2=value2");
+    apr_table_add(headers, "x-amz-tagging", "key1=value1&key2=value2");
     aos_str_set(&bucket, TEST_BUCKET_NAME);
     aos_str_set(&object, object_name);
     s = oss_init_multipart_upload(options, &bucket, &object,
@@ -834,7 +834,7 @@ void test_object_tagging_resumale_upload(CuTest *tc)
     options = oss_request_options_create(p);
     init_test_request_options(options, is_cname);
     headers = aos_table_make(p, 0);
-    apr_table_add(headers, "x-oss-tagging", "key1=value1&key2=value2");
+    apr_table_add(headers, "x-amz-tagging", "key1=value1&key2=value2");
     aos_str_set(&bucket, TEST_BUCKET_NAME);
     aos_str_set(&object, object_name);
     aos_list_init(&resp_body);

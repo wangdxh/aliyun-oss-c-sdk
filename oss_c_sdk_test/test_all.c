@@ -253,7 +253,7 @@ int main(int argc, char *argv[])
 
     aos_log_set_print(aos_log_print_default);
     aos_log_set_format(aos_log_format_default);
-    aos_log_set_level(AOS_LOG_OFF);
+    aos_log_set_level(AOS_LOG_INFO);
     exit_code = run_all_tests(argc, argv);
 
     //aos_http_io_deinitialize last

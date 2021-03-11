@@ -67,7 +67,7 @@ aos_status_t *oss_do_put_object_from_buffer(const oss_request_options_t *options
     oss_init_object_request(options, bucket, object, HTTP_PUT, 
                             &req, query_params, headers, progress_callback, 0, &resp);
     oss_write_request_body_from_buffer(buffer, req);
-
+ 
     s = oss_process_request(options, req, resp);
     oss_fill_read_response_body(resp, resp_body);
     oss_fill_read_response_header(resp, resp_headers);
@@ -612,7 +612,7 @@ aos_status_t *oss_append_object_from_buffer(const oss_request_options_t *options
     set_content_type(NULL, object->data, headers);
     apr_table_add(headers, OSS_EXPECT, "");
 
-    oss_init_object_request(options, bucket, object, HTTP_POST, 
+    oss_init_object_request(options, bucket, object, HTTP_PUT, 
                             &req, query_params, headers, NULL, 0, &resp);
     oss_write_request_body_from_buffer(buffer, req);
 

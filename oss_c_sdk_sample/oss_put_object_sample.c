@@ -26,7 +26,7 @@ void put_object_from_buffer()
     options = oss_request_options_create(p);
     init_sample_request_options(options, is_cname);
     headers = aos_table_make(p, 1);
-    apr_table_set(headers, "x-oss-meta-author", "oss");
+    apr_table_set(headers, "x-amz-meta-author", "oss");
     aos_str_set(&bucket, BUCKET_NAME);
     aos_str_set(&object, OBJECT_NAME);
 
@@ -69,7 +69,7 @@ void put_object_from_buffer_with_md5()
     options = oss_request_options_create(p);
     init_sample_request_options(options, is_cname);
     headers = aos_table_make(p, 2);
-    apr_table_set(headers, "x-oss-meta-author", "oss");
+    apr_table_set(headers, "x-amz-meta-author", "oss");
     aos_str_set(&bucket, BUCKET_NAME);
     aos_str_set(&object, OBJECT_NAME);
 
