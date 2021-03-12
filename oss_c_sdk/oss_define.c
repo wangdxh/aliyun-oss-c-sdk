@@ -45,7 +45,7 @@ const char OSS_SECURITY_TOKEN[] = "security-token";
 const char OSS_STS_SECURITY_TOKEN[] = "x-amz-security-token";
 
 // next two from https://github.com/ceph/ceph/pull/22755
-const char OSS_OBJECT_TYPE[] = "x-amz-object-type";  
+const char OSS_OBJECT_TYPE[] = "x-rgw-object-type";  
 const char OSS_NEXT_APPEND_POSITION[] = "x-rgw-next-append-position";
 
 // not find in amz  为了签名通过，修改成amz

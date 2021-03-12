@@ -1,0 +1,61 @@
+wangdeMacBook-Pro:Desktop wang$ python ./s3test.py 
+list bucket....f
+AWS BTKZY9YC08AKLAWGN6RY:6lQfMlSx8D1D0B0guGJNRDbdDZE=
+({'Transfer-Encoding': 'chunked', 'Date': 'Fri, 12 Mar 2021 03:00:48 GMT', 'Connection': 'Keep-Alive', 'x-amz-request-id': 'tx00000000000000004c2f2-00604ad960-1db3de-cn-east-1', 'Content-Type': 'application/xml'}, '\n', u'<?xml version="1.0" encoding="UTF-8"?><ListAllMyBucketsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Owner><ID>admin</ID><DisplayName>admin</DisplayName></Owner><Buckets><Bucket><Name>append1</Name><CreationDate>2021-03-05T12:01:06.422Z</CreationDate></Bucket><Bucket><Name>append2</Name><CreationDate>2021-03-05T12:01:08.028Z</CreationDate></Bucket><Bucket><Name>append3</Name><CreationDate>2021-03-05T12:01:09.060Z</CreationDate></Bucket><Bucket><Name>mytestbucket</Name><CreationDate>2021-03-09T03:23:13.592Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615278746849-bucket-bucket</Name><CreationDate>2021-03-09T08:32:15.180Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615278787515-bucket-bucket</Name><CreationDate>2021-03-09T08:32:55.846Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615278979476-bucket-bucket</Name><CreationDate>2021-03-09T08:36:07.806Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615279375716-bucket-bucket</Name><CreationDate>2021-03-09T08:42:44.046Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615279437815-bucket-bucket</Name><CreationDate>2021-03-09T08:43:46.145Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615463831029-bucket-bucket</Name><CreationDate>2021-03-11T11:56:59.086Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615463831029-bucket-bucket-test-itor</Name><CreationDate>2021-03-11T11:58:03.150Z</CreationDate></Bucket><Bucket><Name>test1</Name><CreationDate>2021-03-11T11:28:23.791Z</CreationDate></Bucket></Buckets></ListAllMyBucketsResult>')
+ The subresources that must be included when constructing the CanonicalizedResource Element are acl, lifecycle, location, logging, notification, partNumber, policy, requestPayment, torrent, uploadId, uploads, versionId, versioning, versions, and website.
+
+        Note that in case of multiple subresources, subresources must be lexicographically sorted by subresource name and separated by '&', e.g., ?acl&versionId=value.
+
+
+
+ multipart upload test......
+AWS BTKZY9YC08AKLAWGN6RY:cXu2C16ud3FcO1jUsUgdPBxKUgU=
+(200, '\n', {'Date': 'Fri, 12 Mar 2021 03:00:48 GMT', 'Content-Length': '260', 'x-amz-request-id': 'tx00000000000000004c2f3-00604ad960-1db3de-cn-east-1', 'Content-Type': 'application/xml', 'Connection': 'Keep-Alive'}, '\n', u'<?xml version="1.0" encoding="UTF-8"?><InitiateMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Bucket>mytestbucket</Bucket><Key>mymultipartupload</Key><UploadId>2~fn3gTeyF0iwVLNiUVyOXhEnct-ccf2L</UploadId></InitiateMultipartUploadResult>')
+('\n\nuploadidis', u'2~fn3gTeyF0iwVLNiUVyOXhEnct-ccf2L')
+
+
+ upload parts
+AWS BTKZY9YC08AKLAWGN6RY:jKtzYymNOPjrKtKTcVV2L5awUUs=
+(200, '\n', {'Content-Length': '0', 'Rgwx-Mtime': '1615518051.400800089', 'Accept-Ranges': 'bytes', 'Connection': 'Keep-Alive', 'ETag': '"ccb03cbb78aeca23c1f5940e8a6d6911"', 'x-amz-request-id': 'tx00000000000000004c2f4-00604ad960-1db3de-cn-east-1', 'Date': 'Fri, 12 Mar 2021 03:00:51 GMT'}, '\n', u'')
+
+
+ ...........
+2~fn3gTeyF0iwVLNiUVyOXhEnct-ccf2L
+AWS BTKZY9YC08AKLAWGN6RY:20SRwLug1NLCCTxtpumFCs88DJ0=
+(200, '\n', {'Content-Length': '0', 'Rgwx-Mtime': '1615518055.113254833', 'Accept-Ranges': 'bytes', 'Connection': 'Keep-Alive', 'ETag': '"ccb03cbb78aeca23c1f5940e8a6d6911"', 'x-amz-request-id': 'tx00000000000000004c2f5-00604ad963-1db3de-cn-east-1', 'Date': 'Fri, 12 Mar 2021 03:00:55 GMT'}, '\n', u'')
+('ccb03cbb78aeca23c1f5940e8a6d6911', 'ccb03cbb78aeca23c1f5940e8a6d6911')
+
+
+ complete...........
+AWS BTKZY9YC08AKLAWGN6RY:qVbpSGzO1X2kQzzsDXJVl9coDCw=
+(200, '\n', {'Date': 'Fri, 12 Mar 2021 03:00:55 GMT', 'Content-Length': '324', 'x-amz-request-id': 'tx00000000000000004c2f6-00604ad967-1db3de-cn-east-1', 'Content-Type': 'application/xml', 'Connection': 'Keep-Alive'}, '\n', u'<?xml version="1.0" encoding="UTF-8"?><CompleteMultipartUploadResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Location>http://10.67.67.238/mytestbucket/mymultipartupload</Location><Bucket>mytestbucket</Bucket><Key>mymultipartupload</Key><ETag>8e4dafd53dc91b8991d67f5547699a94-2</ETag></CompleteMultipartUploadResult>')
+wangdeMacBook-Pro:Desktop wang$ vi ./s3test.py 
+wangdeMacBook-Pro:Desktop wang$ python ./s3test.py 
+list bucket....f
+AWS BTKZY9YC08AKLAWGN6RY:A6ldSX1edIq+OaSaRpyMcUeFqZk=
+({'Transfer-Encoding': 'chunked', 'Date': 'Fri, 12 Mar 2021 03:01:55 GMT', 'Connection': 'Keep-Alive', 'x-amz-request-id': 'tx00000000000000004c2f7-00604ad9a3-1db3de-cn-east-1', 'Content-Type': 'application/xml'}, '\n', u'<?xml version="1.0" encoding="UTF-8"?><ListAllMyBucketsResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Owner><ID>admin</ID><DisplayName>admin</DisplayName></Owner><Buckets><Bucket><Name>append1</Name><CreationDate>2021-03-05T12:01:06.422Z</CreationDate></Bucket><Bucket><Name>append2</Name><CreationDate>2021-03-05T12:01:08.028Z</CreationDate></Bucket><Bucket><Name>append3</Name><CreationDate>2021-03-05T12:01:09.060Z</CreationDate></Bucket><Bucket><Name>mytestbucket</Name><CreationDate>2021-03-09T03:23:13.592Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615278746849-bucket-bucket</Name><CreationDate>2021-03-09T08:32:15.180Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615278787515-bucket-bucket</Name><CreationDate>2021-03-09T08:32:55.846Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615278979476-bucket-bucket</Name><CreationDate>2021-03-09T08:36:07.806Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615279375716-bucket-bucket</Name><CreationDate>2021-03-09T08:42:44.046Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615279437815-bucket-bucket</Name><CreationDate>2021-03-09T08:43:46.145Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615463831029-bucket-bucket</Name><CreationDate>2021-03-11T11:56:59.086Z</CreationDate></Bucket><Bucket><Name>test-c-sdk-1615463831029-bucket-bucket-test-itor</Name><CreationDate>2021-03-11T11:58:03.150Z</CreationDate></Bucket><Bucket><Name>test1</Name><CreationDate>2021-03-11T11:28:23.791Z</CreationDate></Bucket></Buckets></ListAllMyBucketsResult>')
+
+
+create bucket test....
+AWS BTKZY9YC08AKLAWGN6RY:P2ZyKnV0EczpPlciYYNxyoUCES0=
+(200, '\n', {'Date': 'Fri, 12 Mar 2021 03:01:55 GMT', 'Content-Length': '883', 'x-amz-request-id': 'tx00000000000000004c2f8-00604ad9a3-1db3de-cn-east-1', 'Connection': 'Keep-Alive'}, '\n', u'{"entry_point_object_ver":{"tag":"_8LH-SjIcDpXGA-1wNSVNfs1","ver":1},"object_ver":{"tag":"_LNR1XQGJAvKJupk5opUA-ud","ver":1},"bucket_info":{"bucket":{"name":"mytestbucket","marker":"2062926c-9d2b-4bd6-b55c-bcd76ef60e79.1496506.11","bucket_id":"2062926c-9d2b-4bd6-b55c-bcd76ef60e79.1496506.11","tenant":"","explicit_placement":{"data_pool":"","data_extra_pool":"","index_pool":""}},"creation_time":"2021-03-09T03:23:13.592786Z","owner":"admin","flags":0,"zonegroup":"60aa68f4-5cd9-4987-bebe-27a1b45918cb","placement_rule":"default-placement","has_instance_obj":"false","quota":{"enabled":false,"check_on_raw":false,"max_size":-1,"max_size_kb":0,"max_objects":-1},"num_shards":11,"bi_shard_hash_type":0,"requester_pays":"false","has_website":"false","swift_versioning":"false","swift_ver_location":"","index_type":0,"mdsearch_config":[],"reshard_status":0,"new_bucket_instance_id":""}}')
+
+
+ put object to bucket....
+AWS BTKZY9YC08AKLAWGN6RY:PrrY6BoqqGkysI/bv18PgIC2mkQ=
+(200, '\n', {'Content-Length': '0', 'Rgwx-Mtime': '1615518115.781570009', 'Accept-Ranges': 'bytes', 'Connection': 'Keep-Alive', 'ETag': '"1b3f162e779589e89b8351e3b6f0b0cf"', 'x-amz-request-id': 'tx00000000000000004c2f9-00604ad9a3-1db3de-cn-east-1', 'Date': 'Fri, 12 Mar 2021 03:01:55 GMT'}, '\n', u'')
+
+
+ get object from bucket....
+AWS BTKZY9YC08AKLAWGN6RY:0FHfTrx+20S3o4eo8w1RbPc+KkE=
+({'Content-Length': '20', 'Rgwx-Mtime': '1615518115.781570009', 'x-amz-meta-author1234': 'hhhh', 'Rgwx-Obj-PG-Ver': '668188', 'Accept-Ranges': 'bytes', 'Last-Modified': 'Fri, 12 Mar 2021 03:01:55 GMT', 'Connection': 'Keep-Alive', 'x-rgw-object-type': 'Normal', 'x-amz-request-id': 'tx00000000000000004c2fa-00604ad9a3-1db3de-cn-east-1', 'Date': 'Fri, 12 Mar 2021 03:01:55 GMT', 'Rgwx-Source-Zone-Short-Id': '222093994', 'Content-Type': 'application/octet-stream', 'ETag': '"1b3f162e779589e89b8351e3b6f0b0cf"'}, '\n', u'this is my test data')
+
+
+ append object to bucket....
+AWS BTKZY9YC08AKLAWGN6RY:63GlsHy22Vbeg7w/GQ+xxnDBDsg=
+(409, '\n', {'Content-Length': '242', 'Accept-Ranges': 'bytes', 'Connection': 'Keep-Alive', 'x-amz-request-id': 'tx00000000000000004c2fb-00604ad9a4-1db3de-cn-east-1', 'Date': 'Fri, 12 Mar 2021 03:01:56 GMT', 'x-rgw-next-append-position': '27', 'Content-Type': 'application/xml'}, '\n', u'<?xml version="1.0" encoding="UTF-8"?><Error><Code>PositionNotEqualToLength</Code><BucketName>mytestbucket</BucketName><RequestId>tx00000000000000004c2fb-00604ad9a4-1db3de-cn-east-1</RequestId><HostId>1db3de-cn-east-1-default</HostId></Error>')
+
+
+ Head object from bucket....
+AWS BTKZY9YC08AKLAWGN6RY:+CjW34wuN7PYoAzAdPZzOHEi08o=
+({'Content-Length': '27', 'Rgwx-Mtime': '1615293770.791725603', 'x-amz-meta-author1234': 'hhhh', 'Rgwx-Obj-PG-Ver': '579388', 'Accept-Ranges': 'bytes', 'Last-Modified': 'Tue, 09 Mar 2021 12:42:50 GMT', 'Connection': 'Keep-Alive', 'x-rgw-object-type': 'Appendable', 'x-amz-request-id': 'tx00000000000000004c2fc-00604ad9a4-1db3de-cn-east-1', 'Date': 'Fri, 12 Mar 2021 03:01:56 GMT', 'x-rgw-next-append-position': '27', 'Rgwx-Source-Zone-Short-Id': '222093994', 'Content-Type': 'application/octet-stream', 'ETag': '"aa139e39afd46319ed45000530b446fc"'}, '\n', u'')
