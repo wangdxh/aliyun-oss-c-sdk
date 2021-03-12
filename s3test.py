@@ -42,6 +42,11 @@ if __name__ == "__main__":
         print (res.status_code, "\n", res.headers, "\n", res.text)
 
         mytestdata = 'mytestdata'
+        print "\n\n Head bucket...."
+        headers = {'Date':my_date,'Authorization':generate_auth_string("HEAD", '/'+bucketname, my_date)}
+        res = requests.head(baseurl,params={},headers=headers)
+        print (res.headers, "\n", res.text)
+
         #
         print("\n\n put object to bucket....")
         baseurl = 'http://' + host + ':'+str(port) + '/'  + bucketname + '/' + mytestdata
